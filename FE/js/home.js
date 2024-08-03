@@ -57,7 +57,7 @@ $(document).ready(function () {
     ListAllCategory();
 
     function AddPagination(name, page) {
-        var url = 'https://localhost:7225/Product/Home/List'
+        var url = 'https://localhost:7225/Product/List'
         if (name === undefined || name.toString().trim().length === 0) {
             url = url + `?page=${page}`;
         } else {
