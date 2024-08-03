@@ -5,7 +5,7 @@ namespace Common.Base
     public class ResponseBase
     {
         public int Code { get; set; }
-        public string Message { get; set; } = string.Empty;
+        public string Message { get; set; } = null!;
         public object Data { get; set; }
 
         public ResponseBase(object data, string message, int code)
@@ -32,6 +32,7 @@ namespace Common.Base
         public ResponseBase(object data)
         {
             Data = data;
+            Message = string.Empty;
             Code = (int)HttpStatusCode.OK;
         }
 

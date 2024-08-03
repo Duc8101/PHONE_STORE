@@ -30,6 +30,7 @@
 
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         html {
             position: relative;
@@ -84,10 +85,24 @@
         </section><!-- End Top Header Bar -->
     </header>
 
-   <!--------------------main ------------------------------>
+    <!--------------------main ------------------------------>
     <div>
         <main role="main">
             <div class="row" style="margin-left:3%">
+                <div class="form-group">
+                    <input type="text" id="Name" class="form-control" name="name" placeholder="Search"
+                        value="" /><br /><br />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="CategoryID">Category:</label>
+                    <select name="categoryId" class="form-control" id="CategoryID" style="width: 300px">
+                        
+
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-outline-primary ms-lg-2">Search</button>
+                </div>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -98,15 +113,19 @@
                             <th>Category Name</th>
                         </tr>
                     </thead>
-                    <tbody id="#tableBody">
+                    <tbody id="tableBody">
 
                     </tbody>
-                       
+
                 </table>
             </div>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center list-group" style="margin-left: 50%" id="pagination">
+
+                </ul>
+            </nav>
         </main>
-
-
 
     </div>
 
@@ -158,6 +177,8 @@
             </div>
         </div>
     </footer>
+
+    <script src="js/home.js"></script>
     <!-- Main jQuery -->
     <script src="plugins/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.1 -->
