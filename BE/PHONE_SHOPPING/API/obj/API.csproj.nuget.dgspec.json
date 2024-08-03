@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\API\\API.csproj": {}
+    "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\API\\API.csproj": {}
   },
   "projects": {
-    "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\API\\API.csproj": {
+    "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\API\\API.csproj",
+        "projectUniqueName": "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\API\\API.csproj",
+        "projectPath": "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\API\\API.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\API\\obj\\",
+        "outputPath": "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\DataAccess\\DataAccess.csproj": {
-                "projectPath": "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\DataAccess\\DataAccess.csproj"
+              "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\DataAccess\\DataAccess.csproj": {
+                "projectPath": "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\DataAccess\\DataAccess.csproj"
               }
             }
           }
@@ -103,14 +103,14 @@
         }
       }
     },
-    "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\Common\\Common.csproj": {
+    "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\Common\\Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\Common\\Common.csproj",
+        "projectUniqueName": "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\Common\\Common.csproj",
         "projectName": "Common",
-        "projectPath": "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\Common\\Common.csproj",
+        "projectPath": "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\Common\\Common.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\Common\\obj\\",
+        "outputPath": "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\Common\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -193,14 +193,14 @@
         }
       }
     },
-    "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\DataAccess\\DataAccess.csproj": {
+    "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\DataAccess\\DataAccess.csproj",
+        "projectPath": "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\DataAccess\\DataAccess.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\DataAccess\\obj\\",
+        "outputPath": "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -217,8 +217,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\Common\\Common.csproj": {
-                "projectPath": "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\Common\\Common.csproj"
+              "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\Common\\Common.csproj": {
+                "projectPath": "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\Common\\Common.csproj"
               }
             }
           }

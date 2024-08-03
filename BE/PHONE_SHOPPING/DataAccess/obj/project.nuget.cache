@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KIR8DZZDajxy858ZvM15hzCJR5JtRFOjYJWVHyJlgWNoVln+W1cALPS0gLBAimacLZKAKudODVKM7sCtSrfVTQ==",
+  "dgSpecHash": "YI9CCppuysQJiH+naWbuoN7s/lvovLRUF82/bbeEIvauq/E/uWzOaZgdKhfQijnpm1qX69rmYqUOCrgPuYvx+Q==",
   "success": true,
-  "projectFilePath": "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\DataAccess\\DataAccess.csproj",
+  "projectFilePath": "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\DataAccess\\DataAccess.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\bouncycastle.cryptography\\2.4.0\\bouncycastle.cryptography.2.4.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\mailkit\\4.7.1.1\\mailkit.4.7.1.1.nupkg.sha512",

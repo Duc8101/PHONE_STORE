@@ -3372,11 +3372,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\API\\API.csproj",
+      "projectUniqueName": "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\API\\API.csproj",
+      "projectPath": "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\API\\API.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\API\\obj\\",
+      "outputPath": "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3393,8 +3393,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\DataAccess\\DataAccess.csproj": {
-              "projectPath": "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\DataAccess\\DataAccess.csproj"
+            "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\DataAccess\\DataAccess.csproj"
             }
           }
         }

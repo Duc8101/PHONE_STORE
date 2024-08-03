@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "i1Znnhfdwy2hmNU/Ca4nQ71ihFfEVJJUs/X6y2IxYnSSmzpQS5PdBJq1smBErDxDZQzvB7c6lAmf/DFTEaWkXg==",
+  "dgSpecHash": "GN8e/rPSwOd47Jf9FTGKuUEOCtLCZZ2UP9ju9+vblZufHCAM5cVtuLbffLUjnjUd/0kY5DUxFOlnAsnZQbTsZA==",
   "success": true,
-  "projectFilePath": "D:\\GitHub\\PHONE_SHOPPING\\BE\\PHONE_SHOPPING\\API\\API.csproj",
+  "projectFilePath": "D:\\GitHub\\PHONE_STORE\\BE\\PHONE_SHOPPING\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\bouncycastle.cryptography\\2.4.0\\bouncycastle.cryptography.2.4.0.nupkg.sha512",
