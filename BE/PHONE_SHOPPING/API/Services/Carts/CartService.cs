@@ -37,7 +37,7 @@ namespace API.Services.Carts
                 Product? product = _context.Products.Include(p => p.Category).FirstOrDefault(p => p.ProductId == DTO.ProductId && p.IsDeleted == false);
                 if (product == null)
                 {
-                    return new ResponseBase(false, "Not found product", (int)HttpStatusCode.NotFound);
+                    return new ResponseBase("Not found product", (int)HttpStatusCode.NotFound);
                 }
                 Cart? cart = _context.Carts.FirstOrDefault(c => c.UserId == userId && c.ProductId == DTO.ProductId && c.IsCheckOut == false && c.IsDeleted == false);
                 if (cart == null)
@@ -63,11 +63,11 @@ namespace API.Services.Carts
                     _context.Carts.Update(cart);
                     _context.SaveChanges();
                 }
-                return new ResponseBase(true, string.Empty);
+                return new ResponseBase(true);
             }
             catch (Exception ex)
             {
-                return new ResponseBase(false, ex.Message + " " + ex, (int)HttpStatusCode.InternalServerError);
+                return new ResponseBase(ex.Message + " " + ex, (int)HttpStatusCode.InternalServerError);
             }
         }
 
@@ -78,17 +78,19 @@ namespace API.Services.Carts
                 User? user = _context.Users.Include(u => u.Role).FirstOrDefault(u => u.UserId == userId);
                 if (user == null)
                 {
-                    return new ResponseBase(false, "Not found user", (int)HttpStatusCode.NotFound);
+                    return new ResponseBase("Not found user", (int)HttpStatusCode.NotFound);
                 }
+
                 Product? product = _context.Products.Include(p => p.Category).FirstOrDefault(p => p.ProductId == productId && p.IsDeleted == false);
                 if (product == null)
                 {
-                    return new ResponseBase(false, "Product not exist", (int)HttpStatusCode.NotFound);
+                    return new ResponseBase("Product not exist", (int)HttpStatusCode.NotFound);
                 }
+
                 Cart? cart = _context.Carts.FirstOrDefault(c => c.UserId == userId && c.ProductId == productId && c.IsCheckOut == false && c.IsDeleted == false);
                 if (cart == null)
                 {
-                    return new ResponseBase(false, "Cart not exist", (int)HttpStatusCode.NotFound);
+                    return new ResponseBase("Cart not exist", (int)HttpStatusCode.NotFound);
                 }
                 else
                 {
@@ -104,11 +106,11 @@ namespace API.Services.Carts
                     _context.Carts.Update(cart);
                     _context.SaveChanges();
                 }
-                return new ResponseBase(true, string.Empty);
+                return new ResponseBase(true);
             }
             catch (Exception ex)
             {
-                return new ResponseBase(false, ex.Message + " " + ex, (int)HttpStatusCode.InternalServerError);
+                return new ResponseBase(ex.Message + " " + ex, (int)HttpStatusCode.InternalServerError);
             }
         }
     }

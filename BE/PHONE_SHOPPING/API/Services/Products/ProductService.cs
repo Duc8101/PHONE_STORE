@@ -32,61 +32,20 @@ namespace API.Services.Products
             return query;
         }
 
-        public ResponseBase List(bool isAdmin, string? name, int? categoryId, int page)
+        public ResponseBase List(string? name, int? categoryId, int page)
         {
-            int prePage = page - 1;
-            int nextPage = page + 1;
-            string preURL = isAdmin ? "/ManagerProduct" : "/Home";
-            string nextURL = isAdmin ? "/ManagerProduct" : "/Home";
-            string firstURL = isAdmin ? "/ManagerProduct" : "/Home";
-            string lastURL = isAdmin ? "/ManagerProduct" : "/Home";
             try
             {
                 IQueryable<Product> query = getQuery(name, categoryId);
                 int count = query.Count();
                 int numberPage = (int)Math.Ceiling((double)count / (int)PageSize.Product_List);
-                // if not choose category and name
-                if (categoryId == null && (name == null || name.Trim().Length == 0))
-                {
-                    preURL = preURL + "?page=" + prePage;
-                    nextURL = nextURL + "?page=" + nextPage;
-                    lastURL = lastURL + "?page=" + numberPage;
-                }
-                else
-                {
-                    if (name == null || name.Trim().Length == 0)
-                    {
-                        preURL = preURL + "?categoryId=" + categoryId + "&page=" + prePage;
-                        nextURL = nextURL + "?categoryId=" + categoryId + "&page=" + nextPage;
-                        firstURL = firstURL + "?categoryId=" + categoryId;
-                        lastURL = lastURL + "?categoryId=" + categoryId + "&page=" + numberPage;
-                    }
-                    else if (categoryId == null)
-                    {
-                        preURL = preURL + "?name=" + name.Trim() + "&page=" + prePage;
-                        nextURL = nextURL + "?name=" + name.Trim() + "&page=" + nextPage;
-                        firstURL = firstURL + "?name=" + name.Trim();
-                        lastURL = lastURL + "?name=" + name.Trim() + "&page=" + numberPage;
-                    }
-                    else
-                    {
-                        preURL = preURL + "?name=" + name.Trim() + "&categoryId=" + categoryId + "&page=" + prePage;
-                        nextURL = nextURL + "?name=" + name.Trim() + "&categoryId=" + categoryId + "&page=" + nextPage;
-                        firstURL = firstURL + "?name=" + name.Trim() + "&categoryId=" + categoryId;
-                        lastURL = lastURL + "?name=" + name.Trim() + "&categoryId=" + categoryId + "&page=" + numberPage;
-                    }
-                }
-                List<Product> list= query.OrderByDescending(p => p.UpdateAt).Skip((int)PageSize.Product_List * (page - 1))
+                List<Product> products = query.OrderByDescending(p => p.UpdateAt).Skip((int)PageSize.Product_List * (page - 1))
                     .Take((int)PageSize.Product_List).ToList();
-                List<ProductListDTO> DTO = _mapper.Map<List<ProductListDTO>>(list);
+                List<ProductListDTO> list = _mapper.Map<List<ProductListDTO>>(products);
                 Pagination<ProductListDTO> data = new Pagination<ProductListDTO>()
                 {
                     PageSelected = page,
-                    List = DTO,
-                    PRE_URL = preURL,
-                    LAST_URL = lastURL,
-                    NEXT_URL = nextURL,
-                    FIRST_URL = firstURL,
+                    List = list,
                     NumberPage = numberPage,
                 };
                 return new ResponseBase(data);
@@ -137,8 +96,8 @@ namespace API.Services.Products
                 {
                     return new ResponseBase("Not found product", (int)HttpStatusCode.NotFound);
                 }
-                ProductListDTO DTO = _mapper.Map<ProductListDTO>(product);
-                return new ResponseBase(DTO);
+                ProductListDTO data = _mapper.Map<ProductListDTO>(product);
+                return new ResponseBase(data);
             }
             catch (Exception ex)
             {

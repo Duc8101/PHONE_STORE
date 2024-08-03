@@ -87,6 +87,7 @@ namespace API.Services.Orders
                 return new ResponseBase(ex.Message + " " + ex, (int)HttpStatusCode.InternalServerError);
             }
         }
+        
         private IQueryable<Order> getQuery(Guid? userId, string? status)
         {
             IQueryable<Order> query = _context.Orders.Include(u => u.User);
@@ -107,50 +108,16 @@ namespace API.Services.Orders
             try
             {
                 IQueryable<Order> query = getQuery(userId, status);
-                List<Order> list = query.Skip((int)PageSize.Order_List * (page - 1)).Take((int)PageSize.Order_List)
+                List<Order> orders = query.Skip((int)PageSize.Order_List * (page - 1)).Take((int)PageSize.Order_List)
                     .ToList();
-                List<OrderListDTO> DTO = _mapper.Map<List<OrderListDTO>>(list);
+                List<OrderListDTO> list = _mapper.Map<List<OrderListDTO>>(orders);
                 int count = query.Count();
-                int number = (int)Math.Ceiling((double)count / (int)PageSize.Order_List);
-                int prePage = page - 1;
-                int nextPage = page + 1;
-                string preURL;
-                string nextURL;
-                string firstURL;
-                string lastURL;
-                if (isAdmin)
-                {
-                    if (status == null || status.Trim().Length == 0)
-                    {
-                        preURL = "/ManagerOrder?page=" + prePage;
-                        nextURL = "/ManagerOrder?page=" + nextPage;
-                        firstURL = "/ManagerOrder";
-                        lastURL = "/ManagerOrder?page=" + number;
-                    }
-                    else
-                    {
-                        preURL = "/ManagerOrder?status=" + status.Trim() + "&page=" + prePage;
-                        nextURL = "/ManagerOrder?status=" + status.Trim() + "&page=" + nextPage;
-                        firstURL = "/ManagerOrder?status=" + status.Trim();
-                        lastURL = "/ManagerOrder?status=" + status.Trim() + "&page=" + number;
-                    }
-                }
-                else
-                {
-                    preURL = "/MyOrder?page=" + prePage;
-                    nextURL = "/MyOrder?page=" + nextPage;
-                    firstURL = "/MyOrder";
-                    lastURL = "/MyOrder?page=" + number;
-                }
+                int number = (int)Math.Ceiling((double)count / (int)PageSize.Order_List);  
                 Pagination<OrderListDTO> data = new Pagination<OrderListDTO>()
                 {
                     PageSelected = page,
                     NumberPage = number,
-                    List = DTO,
-                    FIRST_URL = firstURL,
-                    LAST_URL = lastURL,
-                    NEXT_URL = nextURL,
-                    PRE_URL = preURL,
+                    List = list,
                 };
                 return new ResponseBase(data);
             }

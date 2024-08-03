@@ -5,7 +5,7 @@ namespace API.Services.Products
 {
     public interface IProductService
     {
-        ResponseBase List(bool isAdmin, string? name, int? categoryId, int page);
+        ResponseBase List(string? name, int? categoryId, int page);
         ResponseBase Create(ProductCreateUpdateDTO DTO);
         ResponseBase Detail(Guid productId);
         ResponseBase Update(Guid productId, ProductCreateUpdateDTO DTO);

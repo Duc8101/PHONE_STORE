@@ -20,17 +20,18 @@ namespace API.Services.Users
         {
 
         }
+
         public ResponseBase Detail(Guid userId)
         {
             try
             {
-                User? user = _context.Users.Include(u => u.Role).FirstOrDefault(u => u.UserId == userId);
+                User? user = _context.Users.Include(u => u.Role).SingleOrDefault(u => u.UserId == userId);
                 if (user == null)
                 {
                     return new ResponseBase("Not found user", (int)HttpStatusCode.NotFound);
                 }
                 UserDetailDTO data = _mapper.Map<UserDetailDTO>(user);
-                return new ResponseBase(data, string.Empty);
+                return new ResponseBase(data);
             }
             catch (Exception ex)
             {
@@ -67,7 +68,8 @@ namespace API.Services.Users
                 {
                     clientId = client.ClientId;
                 }
-                string AccessToken = UserHelper.getAccessToken(user);
+
+                string accessToken = UserHelper.getAccessToken(user);
                 UserClient? userClient = _context.UserClients.FirstOrDefault(uc => uc.UserId == user.UserId && uc.ClientId == clientId);
                 // nếu chưa đăng nhập trên thiết bị
                 if (userClient == null)
@@ -77,7 +79,7 @@ namespace API.Services.Users
                         UserClientId = Guid.NewGuid(),
                         UserId = user.UserId,
                         ClientId = clientId,
-                        Token = AccessToken,
+                        Token = accessToken,
                         ExpireDate = DateTime.Now.AddDays(1),
                         CreatedAt = DateTime.Now,
                         UpdateAt = DateTime.Now,
@@ -88,15 +90,16 @@ namespace API.Services.Users
                 }
                 else
                 {
-                    userClient.Token = AccessToken;
+                    userClient.Token = accessToken;
                     userClient.UpdateAt = DateTime.Now;
                     userClient.ExpireDate = DateTime.Now.AddDays(1);
                     _context.UserClients.Update(userClient);
                     _context.SaveChanges();
                 }
+
                 UserLoginInfoDTO data = new UserLoginInfoDTO()
                 {
-                    Access_Token = AccessToken,
+                    Access_Token = accessToken,
                     UserId = user.UserId,
                     RoleId = user.RoleId,
                     Username = user.Username,
@@ -111,7 +114,6 @@ namespace API.Services.Users
                     _context.SaveChanges();
                 }
                 return new ResponseBase(data);
-
             }
             catch (Exception ex)
             {
@@ -134,7 +136,7 @@ namespace API.Services.Users
             }
             catch (Exception ex)
             {
-                return new ResponseBase(false, ex.Message + " " + ex, (int)HttpStatusCode.InternalServerError);
+                return new ResponseBase(ex.Message + " " + ex, (int)HttpStatusCode.InternalServerError);
             }
         }
 
@@ -146,11 +148,11 @@ namespace API.Services.Users
                 Regex regex = new Regex(format);
                 if (!regex.IsMatch(DTO.Email.Trim()))
                 {
-                    return new ResponseBase(false, "Invalid email", (int)HttpStatusCode.Conflict);
+                    return new ResponseBase("Invalid email", (int)HttpStatusCode.Conflict);
                 }
                 if (_context.Users.Any(u => u.Username == DTO.Username || u.Email == DTO.Email.Trim()))
                 {
-                    return new ResponseBase(false, "Username or email has existed", (int)HttpStatusCode.Conflict);
+                    return new ResponseBase("Username or email has existed", (int)HttpStatusCode.Conflict);
                 }
                 string newPw = UserHelper.RandomPassword();
                 string hashPw = UserHelper.HashPassword(newPw);
@@ -171,7 +173,7 @@ namespace API.Services.Users
             }
             catch (Exception ex)
             {
-                return new ResponseBase(false, ex.Message + " " + ex, (int)HttpStatusCode.InternalServerError);
+                return new ResponseBase(ex.Message + " " + ex, (int)HttpStatusCode.InternalServerError);
             }
         }
 
@@ -182,7 +184,7 @@ namespace API.Services.Users
                 User? user = _context.Users.FirstOrDefault(u => u.Email == DTO.Email.Trim());
                 if (user == null)
                 {
-                    return new ResponseBase(false, "Not found email", (int)HttpStatusCode.NotFound);
+                    return new ResponseBase("Not found email", (int)HttpStatusCode.NotFound);
                 }
                 string newPw = UserHelper.RandomPassword();
                 string hashPw = UserHelper.HashPassword(newPw);
@@ -198,7 +200,7 @@ namespace API.Services.Users
             }
             catch (Exception ex)
             {
-                return new ResponseBase(false, ex.Message + " " + ex, (int)HttpStatusCode.InternalServerError);
+                return new ResponseBase(ex.Message + " " + ex, (int)HttpStatusCode.InternalServerError);
             }
         }
 
@@ -237,27 +239,27 @@ namespace API.Services.Users
                 User? user = _context.Users.Find(userId);
                 if (user == null)
                 {
-                    return new ResponseBase(false, "Not found user", (int)HttpStatusCode.NotFound);
+                    return new ResponseBase("Not found user", (int)HttpStatusCode.NotFound);
                 }
                 if (DTO.CurrentPassword == null)
                 {
-                    return new ResponseBase(false, "Current password must not contain all space", (int)HttpStatusCode.Conflict);
+                    return new ResponseBase("Current password must not contain all space", (int)HttpStatusCode.Conflict);
                 }
                 if (DTO.ConfirmPassword == null)
                 {
-                    return new ResponseBase(false, "Confirm password must not contain all space", (int)HttpStatusCode.Conflict);
+                    return new ResponseBase("Confirm password must not contain all space", (int)HttpStatusCode.Conflict);
                 }
                 if (DTO.NewPassword == null)
                 {
-                    return new ResponseBase(false, "New password must not contain all space", (int)HttpStatusCode.Conflict);
+                    return new ResponseBase("New password must not contain all space", (int)HttpStatusCode.Conflict);
                 }
                 if (user.Password != UserHelper.HashPassword(DTO.CurrentPassword))
                 {
-                    return new ResponseBase(false, "Your old password not correct", (int)HttpStatusCode.Conflict);
+                    return new ResponseBase("Your old password not correct", (int)HttpStatusCode.Conflict);
                 }
                 if (!DTO.ConfirmPassword.Equals(DTO.NewPassword))
                 {
-                    return new ResponseBase(false, "Your confirm password not the same new password", (int)HttpStatusCode.Conflict);
+                    return new ResponseBase("Your confirm password not the same new password", (int)HttpStatusCode.Conflict);
                 }
                 user.Password = UserHelper.HashPassword(DTO.NewPassword);
                 user.UpdateAt = DateTime.Now;
@@ -267,7 +269,7 @@ namespace API.Services.Users
             }
             catch (Exception ex)
             {
-                return new ResponseBase(false, ex.Message + " " + ex, (int)HttpStatusCode.InternalServerError);
+                return new ResponseBase(ex.Message + " " + ex, (int)HttpStatusCode.InternalServerError);
             }
         }
 
@@ -277,17 +279,24 @@ namespace API.Services.Users
             {
                 var handler = new JwtSecurityTokenHandler();
                 var tokenS = handler.ReadJwtToken(token);
-                string userId = tokenS.Claims.First(c => c.Type == "id").Value;
+                string? userId = tokenS.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
+                if(userId == null)
+                {
+                    return new ResponseBase("Not found user id", (int)HttpStatusCode.NotFound);
+                }
+
                 User? user = _context.Users.Find(Guid.Parse(userId));
                 if (user == null)
                 {
                     return new ResponseBase("Not found user", (int)HttpStatusCode.NotFound);
                 }
+
                 Client? client = _context.Clients.FirstOrDefault(c => c.HarewareInfo == hardware);
                 if (client == null)
                 {
                     return new ResponseBase("Not found client", (int)HttpStatusCode.NotFound);
                 }
+
                 UserClient? userClient = _context.UserClients.FirstOrDefault(uc => uc.UserId == Guid.Parse(userId)
                 && uc.ClientId == client.ClientId);
                 if (userClient == null)
@@ -302,6 +311,7 @@ namespace API.Services.Users
                 {
                     return new ResponseBase("Token expired", (int)HttpStatusCode.Conflict);
                 }
+
                 UserLoginInfoDTO data = new UserLoginInfoDTO()
                 {
                     Access_Token = token,
@@ -310,7 +320,7 @@ namespace API.Services.Users
                     Username = user.Username,
                     ExpireDate = userClient.ExpireDate,
                 };
-                return new ResponseBase(data, string.Empty);
+                return new ResponseBase(data);
             }
             catch (Exception ex)
             {

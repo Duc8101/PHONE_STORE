@@ -22,19 +22,9 @@ namespace API.Controllers
         [HttpGet("List")]
         public ResponseBase Home(string? name, int? categoryId, [Required] int page = 1)
         {
-            ResponseBase result = _service.List(false, name, categoryId, page);
-            Response.StatusCode = result.Code;
-            return result;
-        }
-
-        [HttpGet("List")]
-        [Role(Roles.Admin)]
-        [Authorize]
-        public ResponseBase Manager(string? name, int? categoryId, [Required] int page = 1)
-        {
-            ResponseBase result = _service.List(true, name, categoryId, page);
-            Response.StatusCode = result.Code;
-            return result;
+            ResponseBase response = _service.List(name, categoryId, page);
+            Response.StatusCode = response.Code;
+            return response;
         }
 
         [HttpPost]

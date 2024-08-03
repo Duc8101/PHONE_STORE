@@ -22,8 +22,8 @@ namespace API.Services.Categories
             try
             {
                 List<Category> list = _context.Categories.ToList();
-                List<CategoryListDTO> result = _mapper.Map<List<CategoryListDTO>>(list);
-                return new ResponseBase(result, string.Empty);
+                List<CategoryListDTO> data = _mapper.Map<List<CategoryListDTO>>(list);
+                return new ResponseBase(data);
             }
             catch (Exception ex)
             {
@@ -40,42 +40,22 @@ namespace API.Services.Categories
             }
             return query;
         }
+
         public ResponseBase ListPaged(string? name, int page)
         {
             try
             {
                 IQueryable<Category> query = getQuery(name);
-                List<Category> list = query.Skip((int)PageSize.Category_List * (page - 1)).Take((int)PageSize.Category_List)
+                List<Category> categories = query.Skip((int)PageSize.Category_List * (page - 1)).Take((int)PageSize.Category_List)
                     .OrderByDescending(c => c.UpdateAt).ToList();
-                List<CategoryListDTO> DTO = _mapper.Map<List<CategoryListDTO>>(list);
+                List<CategoryListDTO> list = _mapper.Map<List<CategoryListDTO>>(categories);
                 int count = query.Count();
-                int number = (int)Math.Ceiling((double)count / (int)PageSize.Category_List);
-                string preURL = "/ManagerCategory";
-                string nextURL = "/ManagerCategory";
-                string firstURL = "/ManagerCategory";
-                string lastURL = "/ManagerCategory";
-                if (name == null || name.Trim().Length == 0)
-                {
-                    preURL = preURL + "?page=" + (page - 1);
-                    nextURL = nextURL + "?page=" + (page + 1);
-                    lastURL = lastURL + "?page=" + number;
-                }
-                else
-                {
-                    preURL = preURL + "?name=" + name.Trim() + "&page=" + (page - 1);
-                    nextURL = nextURL + "?name=" + name.Trim() + "&page=" + (page + 1);
-                    firstURL = firstURL + "?name=" + name.Trim();
-                    lastURL = lastURL + "?name=" + name.Trim() + "&page=" + number;
-                }
+                int number = (int)Math.Ceiling((double)count / (int)PageSize.Category_List);     
                 Pagination<CategoryListDTO> data = new Pagination<CategoryListDTO>()
                 {
                     PageSelected = page,
-                    NEXT_URL = nextURL,
-                    FIRST_URL = firstURL,
-                    PRE_URL = preURL,
-                    LAST_URL = lastURL,
                     NumberPage = number,
-                    List = DTO
+                    List = list,
                 };
                 return new ResponseBase(data);
             }
@@ -84,13 +64,14 @@ namespace API.Services.Categories
                 return new ResponseBase(ex.Message + " " + ex, (int)HttpStatusCode.InternalServerError);
             }
         }
+        
         public ResponseBase Create(CategoryCreateUpdateDTO DTO)
         {
             try
             {
                 if (_context.Categories.Any(c => c.CategoryName == DTO.CategoryName.Trim()))
                 {
-                    return new ResponseBase(false, "Category existed", (int)HttpStatusCode.Conflict);
+                    return new ResponseBase("Category existed", (int)HttpStatusCode.Conflict);
                 }
                 Category category = new Category()
                 {
@@ -105,9 +86,10 @@ namespace API.Services.Categories
             }
             catch (Exception ex)
             {
-                return new ResponseBase(false, ex.Message + " " + ex, (int)HttpStatusCode.InternalServerError);
+                return new ResponseBase(ex.Message + " " + ex, (int)HttpStatusCode.InternalServerError);
             }
         }
+        
         public ResponseBase Detail(int categoryId)
         {
             try
@@ -125,6 +107,7 @@ namespace API.Services.Categories
                 return new ResponseBase(ex.Message + " " + ex, (int)HttpStatusCode.InternalServerError);
             }
         }
+        
         public ResponseBase Update(int categoryId, CategoryCreateUpdateDTO DTO)
         {
             try
