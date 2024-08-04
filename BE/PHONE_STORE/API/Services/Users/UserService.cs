@@ -48,14 +48,16 @@ namespace API.Services.Users
                 {
                     return new ResponseBase("Username or password incorrect", (int)HttpStatusCode.NotFound);
                 }
+
                 int clientId;
-                Client? client = _context.Clients.FirstOrDefault(c => c.HarewareInfo == DTO.HarewareInfo);
+                string hardwareInfo = HardwareHelper.Generate();
+                Client? client = _context.Clients.FirstOrDefault(c => c.HarewareInfo == hardwareInfo);
                 // nếu chưa đăng ký thiết bị
                 if (client == null)
                 {
                     client = new Client()
                     {
-                        HarewareInfo = DTO.HarewareInfo,
+                        HarewareInfo = hardwareInfo,
                         CreatedAt = DateTime.Now,
                         UpdateAt = DateTime.Now,
                         IsDeleted = false,
@@ -273,14 +275,14 @@ namespace API.Services.Users
             }
         }
 
-        public ResponseBase GetUserByToken(string token, string hardware)
+        public ResponseBase GetUserByToken(string token)
         {
             try
             {
                 var handler = new JwtSecurityTokenHandler();
                 var tokenS = handler.ReadJwtToken(token);
                 string? userId = tokenS.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
-                if(userId == null)
+                if (userId == null)
                 {
                     return new ResponseBase("Not found user id", (int)HttpStatusCode.NotFound);
                 }
@@ -291,7 +293,8 @@ namespace API.Services.Users
                     return new ResponseBase("Not found user", (int)HttpStatusCode.NotFound);
                 }
 
-                Client? client = _context.Clients.FirstOrDefault(c => c.HarewareInfo == hardware);
+                string hardwareInfo = HardwareHelper.Generate();
+                Client? client = _context.Clients.FirstOrDefault(c => c.HarewareInfo == hardwareInfo);
                 if (client == null)
                 {
                     return new ResponseBase("Not found client", (int)HttpStatusCode.NotFound);

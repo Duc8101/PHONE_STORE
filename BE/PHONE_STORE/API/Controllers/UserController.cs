@@ -120,9 +120,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public ResponseBase GetUserByToken(string token , string hardware)
+        public ResponseBase GetUserByToken(string token)
         {
-            ResponseBase response = _service.GetUserByToken(token, hardware);
+            ResponseBase response = _service.GetUserByToken(token);
             Response.StatusCode = response.Code;
             return response;
         }

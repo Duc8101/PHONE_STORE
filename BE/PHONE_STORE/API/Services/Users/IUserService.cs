@@ -1,6 +1,5 @@
 ﻿using Common.Base;
 using Common.DTO.UserDTO;
-using Common.Entity;
 
 namespace API.Services.Users
 {
@@ -13,6 +12,6 @@ namespace API.Services.Users
         ResponseBase Update(Guid userId, UserUpdateDTO DTO);
         ResponseBase ChangePassword(Guid userId, ChangePasswordDTO DTO);
         ResponseBase Logout(Guid userId);
-        ResponseBase GetUserByToken(string token, string hardware);
+        ResponseBase GetUserByToken(string token);
     }
 }
