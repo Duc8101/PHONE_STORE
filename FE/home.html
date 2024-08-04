@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="col-lg-2 col-md-2" style="margin-top: 12px;">
-                    <a href="/Login" class="btn btn-dark" role="button">Login</a>
+                    <a href="#" class="btn btn-dark" role="button">Login</a>
                 </div>
 
             </div>
@@ -89,20 +89,23 @@
     <div>
         <main role="main">
             <div class="row" style="margin-left:3%">
+                <input type="hidden" id="currentPage" value="1">
+                <input type="hidden" id="numberPage" value="1">
                 <div class="form-group">
                     <input type="text" id="Name" class="form-control" name="name" placeholder="Search"
                         value="" /><br /><br />
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="CategoryID">Category:</label>
-                    <select name="categoryId" class="form-control" id="CategoryID" style="width: 300px">
-                        
+                    <label class="form-label" for="CategoryId">Category:</label>
+                    <select name="categoryId" class="form-control" id="CategoryId" style="width: 300px">
+
 
                     </select>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-outline-primary ms-lg-2">Search</button>
+                    <button type="button" id="search" class="btn btn-outline-primary ms-lg-2">Search</button>
                 </div>
+
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -121,8 +124,12 @@
             </div>
 
             <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center list-group" style="margin-left: 50%" id="pagination">
-
+                <ul class="pagination justify-content-center list-group" style="margin-left: 50%" id="pagination">                 
+                    <li class="page-item" id="liFirst"><a class="page-link btn btn-primary btn-lg"  aria-disabled="true" role="button" id="urlFirst">First</a></li>
+                    <li class="page-item" id="liPrevious"><a class="page-link btn btn-primary btn-lg"  aria-disabled="true" role="button" id="urlPrevious">Previous</a></li>
+                    <li class="page-item" id="liNumber"><a class="page-link btn btn-primary btn-lg" aria-disabled="true" role="button" id="urlNumber"></a></li>
+                    <li class="page-item" id="liNext"><a class="page-link btn btn-primary btn-lg"  aria-disabled="true" role="button" id="urlNext">Next</a></li>
+                    <li class="page-item" id="liLast"><a class="page-link btn btn-primary btn-lg"  aria-disabled="true" role="button" id="urlLast">Last</a></li>
                 </ul>
             </nav>
         </main>

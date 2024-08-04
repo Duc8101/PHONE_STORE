@@ -1,10 +1,56 @@
 $(document).ready(function () {
-    function ListAllProduct(name, page) {
-        var url = 'https://localhost:7225/Product/Home/List'
-        if (name === undefined || name.toString().trim().length === 0) {
-            url = url + `?page=${page}`;
+    // set pagination
+    function SetPagination(data) {
+        document.getElementById('urlNumber').innerHTML = `${data.pageSelected}/${data.numberPage}`;
+        const pagination = document.getElementById('pagination');
+        if (data.numberPage > 1) {
+            if (pagination.style.display === 'none') {
+                pagination.style.display = 'flex';
+            }
+            if (data.pageSelected === 1) {
+                document.getElementById("liFirst").classList.add("disabled");
+                document.getElementById("urlFirst").classList.add("disabled");
+                document.getElementById("liPrevious").classList.add("disabled");
+                document.getElementById("urlPrevious").classList.add("disabled");
+                document.getElementById("liNext").classList.remove("disabled");
+                document.getElementById("urlNext").classList.remove("disabled");
+                document.getElementById("liLast").classList.remove("disabled");
+                document.getElementById("urlLast").classList.remove("disabled");
+            } else if (data.pageSelected === data.numberPage) {
+                document.getElementById("liNext").classList.add("disabled");
+                document.getElementById("urlNext").classList.add("disabled");
+                document.getElementById("liLast").classList.add("disabled");
+                document.getElementById("urlLast").classList.add("disabled");
+                document.getElementById("liFirst").classList.remove("disabled");
+                document.getElementById("urlFirst").classList.remove("disabled");
+                document.getElementById("liPrevious").classList.remove("disabled");
+                document.getElementById("urlPrevious").classList.remove("disabled");
+            } else {
+                document.getElementById("liFirst").classList.remove("disabled");
+                document.getElementById("urlFirst").classList.remove("disabled");
+                document.getElementById("liPrevious").classList.remove("disabled");
+                document.getElementById("urlPrevious").classList.remove("disabled");
+                document.getElementById("liNext").classList.remove("disabled");
+                document.getElementById("urlNext").classList.remove("disabled");
+                document.getElementById("liLast").classList.remove("disabled");
+                document.getElementById("urlLast").classList.remove("disabled");
+            }
         } else {
+            pagination.style.display = 'none';
+        }
+    }
+
+    // list all product
+    function ListAllProduct(name, categoryId, page) {
+        var url = 'https://localhost:7225/Product/List'
+        if ((name === null || name.toString().trim().length === 0) && categoryId === 0) {
+            url = url + `?page=${page}`;
+        } else if (name === null || name.toString().trim().length === 0) {
+            url = url + `?categoryId=${categoryId}&page=${page}`;
+        } else if (categoryId === 0) {
             url = url + `?name=${name.toString().trim()}&page=${page}`;
+        } else {
+            url = url + `?name=${name.toString().trim()}&categoryId=${categoryId}&page=${page}`;
         }
         $.ajax({
             url: url,
@@ -24,6 +70,8 @@ $(document).ready(function () {
                     </tr>`;
                     $('#tableBody').append(row);
                 })
+                SetPagination(response.data);
+                document.getElementById('numberPage').value = response.data.numberPage;
             },
 
             error: function (error) {
@@ -33,10 +81,9 @@ $(document).ready(function () {
         })
     }
 
-    ListAllProduct(undefined, 1);
+    $('#CategoryId').append('<option value="0">ALL</option>');
 
-    $('#CategoryID').append('<option value="">ALL</option>');
-
+    // list all category
     function ListAllCategory() {
         $.ajax({
             url: 'https://localhost:7225/Category/List/All',
@@ -45,7 +92,7 @@ $(document).ready(function () {
                 var categories = response.data;
                 categories.forEach(function (category) {
                     var option = `<option value="${category.categoryId}">${category.categoryName}</option>`;
-                    $('#CategoryID').append(option);
+                    $('#CategoryId').append(option);
                 })
             },
             error: function (error) {
@@ -56,37 +103,77 @@ $(document).ready(function () {
 
     ListAllCategory();
 
-    function AddPagination(name, page) {
-        var url = 'https://localhost:7225/Product/List'
-        if (name === undefined || name.toString().trim().length === 0) {
-            url = url + `?page=${page}`;
-        } else {
-            url = url + `?name=${name.toString().trim()}&page=${page}`;
-        }
-        $.ajax({
-            url: url,
-            method: 'GET',
-            success: function (response) {
-                var data = response.data;
-                if (data.numberPage > 1) {
-                    var liFirst = `<li class="page-item ${data.pageSelected == 1 ? 'disabled' : ''}"><a class="page-link btn btn-primary btn-lg ${data.pageSelected == 1 ? 'disabled' : ''}" href="#" aria-disabled="true" role="button">First</a></li>`;
-                    $('#pagination').append(liFirst);
-                    var liPre = `<li class="page-item ${data.pageSelected == 1 ? 'disabled' : ''}"><a class="page-link btn btn-primary btn-lg ${data.pageSelected == 1 ? 'disabled' : ''}" href="#" aria-disabled="true" role="button">Previous</a></li>`;
-                    $('#pagination').append(liPre);
-                    var liNumPage = `<li class="page-item"><a href="" class="page-link btn btn-primary btn-lg">${data.pageSelected}/${data.numberPage}</a></li>`;
-                    $('#pagination').append(liNumPage);
-                    var liNext = `<li class="page-item ${data.pageSelected == data.numberPage ? 'disabled' : ''}"><a class="page-link btn btn-primary btn-lg ${data.pageSelected == data.numberPage ? 'disabled' : ''}" href="#" aria-disabled="true" role="button">Next</a></li>`;
-                    $('#pagination').append(liNext);
-                    var liLast = `<li class="page-item ${data.pageSelected == data.numberPage ? 'disabled' : ''}"><a class="page-link btn btn-primary btn-lg ${data.pageSelected == data.numberPage ? 'disabled' : ''}" href="#" aria-disabled="true" role="button">Last</a></li>`;
-                    $('#pagination').append(liLast);
-                }
-            },
+    ListAllProduct(null, 0, 1);
 
-            error : function(error){
-                console.log(error);
-            }
-        })
-    }
+    // ---------------------- script when click button search -----------------------
+    var search = document.getElementById('search');
+    search.addEventListener('click', function () {
+        var searchName = document.getElementById('Name');
+        var name = searchName.value;
+        var searchCategory = document.getElementById('CategoryId');
+        var categoryId = parseInt(searchCategory.value, 10);
+        document.getElementById('CategoryId').value = categoryId;
+        $('#tableBody').empty();
+        ListAllProduct(name, categoryId, 1);
+    });
 
-    AddPagination(undefined, 1);
+    // ---------------------- script when click url Next-----------------------
+    var urlNext = document.getElementById('urlNext');
+    urlNext.addEventListener('click', function () {
+        var searchName = document.getElementById('Name');
+        var name = searchName.value;
+        var searchCategory = document.getElementById('CategoryId');
+        var categoryId = parseInt(searchCategory.value, 10);
+        document.getElementById('CategoryId').value = categoryId;
+        var currentPage = document.getElementById('currentPage');
+        var pageValue = currentPage.value;
+        var pageSelected = parseInt(pageValue, 10) + 1;
+        document.getElementById('currentPage').value = pageSelected;
+        $('#tableBody').empty();
+        ListAllProduct(name, categoryId, pageSelected);
+    });
+
+    // ---------------------- script when click url Previous-----------------------
+    var urlPrevious = document.getElementById('urlPrevious');
+    urlPrevious.addEventListener('click', function () {
+        var searchName = document.getElementById('Name');
+        var name = searchName.value;
+        var currentPage = document.getElementById('currentPage');
+        var searchCategory = document.getElementById('CategoryId');
+        var categoryId = parseInt(searchCategory.value, 10);
+        document.getElementById('CategoryId').value = categoryId;
+        var pageValue = currentPage.value;
+        var pageSelected = parseInt(pageValue, 10) - 1;
+        document.getElementById('currentPage').value = pageSelected;
+        $('#tableBody').empty();
+        ListAllProduct(name, categoryId, pageSelected);
+    });
+
+    // ---------------------- script when click url First-----------------------
+    var urlFirst = document.getElementById('urlFirst');
+    urlFirst.addEventListener('click', function () {
+        var searchName = document.getElementById('Name');
+        var name = searchName.value;
+        var searchCategory = document.getElementById('CategoryId');
+        var categoryId = parseInt(searchCategory.value, 10);
+        document.getElementById('CategoryId').value = categoryId;
+        document.getElementById('currentPage').value = 1;
+        $('#tableBody').empty();
+        ListAllProduct(name, categoryId, 1);
+    });
+
+    // ---------------------- script when click url Last-----------------------
+    var urlLast = document.getElementById('urlLast');
+    urlLast.addEventListener('click', function () {
+        var searchName = document.getElementById('Name');
+        var name = searchName.value;
+        var searchCategory = document.getElementById('CategoryId');
+        var categoryId = parseInt(searchCategory.value, 10);
+        document.getElementById('CategoryId').value = categoryId;
+        var numberPage = document.getElementById("numberPage");
+        document.getElementById('currentPage').value = numberPage.value;
+        $('#tableBody').empty();
+        ListAllProduct(name, categoryId, numberPage.value);
+    });
+
 })
