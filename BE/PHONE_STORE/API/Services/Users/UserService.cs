@@ -71,20 +71,23 @@ namespace API.Services.Users
                     clientId = client.ClientId;
                 }
 
-                string accessToken = UserHelper.getAccessToken(user);
+                string accessToken;
                 UserClient? userClient = _context.UserClients.FirstOrDefault(uc => uc.UserId == user.UserId && uc.ClientId == clientId);
+                DateTime dateNow = DateTime.Now;
+                DateTime expireDate = dateNow.AddDays(1);
                 // nếu chưa đăng nhập trên thiết bị
                 if (userClient == null)
                 {
+                    accessToken = UserHelper.getAccessToken(user, expireDate);
                     userClient = new UserClient()
                     {
                         UserClientId = Guid.NewGuid(),
                         UserId = user.UserId,
                         ClientId = clientId,
                         Token = accessToken,
-                        ExpireDate = DateTime.Now.AddDays(1),
-                        CreatedAt = DateTime.Now,
-                        UpdateAt = DateTime.Now,
+                        ExpireDate = expireDate,
+                        CreatedAt = dateNow,
+                        UpdateAt = dateNow,
                         IsDeleted = false,
                     };
                     _context.UserClients.Add(userClient);
@@ -92,11 +95,20 @@ namespace API.Services.Users
                 }
                 else
                 {
-                    userClient.Token = accessToken;
-                    userClient.UpdateAt = DateTime.Now;
-                    userClient.ExpireDate = DateTime.Now.AddDays(1);
-                    _context.UserClients.Update(userClient);
-                    _context.SaveChanges();
+                    // nếu token hết hạn
+                    if (userClient.ExpireDate < dateNow)
+                    {
+                        accessToken = UserHelper.getAccessToken(user, expireDate);
+                        userClient.Token = accessToken;
+                        userClient.UpdateAt = dateNow;
+                        userClient.ExpireDate = expireDate;
+                        _context.UserClients.Update(userClient);
+                        _context.SaveChanges();
+                    }
+                    else
+                    {
+                        accessToken = UserHelper.getAccessToken(user, userClient.ExpireDate);
+                    }
                 }
 
                 UserLoginInfoDTO data = new UserLoginInfoDTO()
@@ -107,6 +119,7 @@ namespace API.Services.Users
                     Username = user.Username,
                     ExpireDate = userClient.ExpireDate
                 };
+
                 // ------------------------- remove all cart ------------------------- 
                 List<Cart> list = _context.Carts.Where(c => c.UserId == user.UserId && c.IsCheckOut == false && c.IsDeleted == false).ToList();
                 foreach (Cart cart in list)

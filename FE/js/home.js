@@ -63,7 +63,7 @@ $(document).ready(function () {
                 // get list product
                 var products = response.data.list;
                 // traverse each product
-                products.forEach(function (product) {
+                products.forEach(product => {
                     var row =
                         `<tr>
                         <td>${product.productName}</td>
@@ -103,8 +103,8 @@ $(document).ready(function () {
                 'Authorization' :  `Bearer ${token}`
             },
             success: function (response) {
-                var categories = response.data;
-                categories.forEach(function (category) {
+                let categories = response.data;
+                categories.forEach(category => {
                     var option = `<option value="${category.categoryId}">${category.categoryName}</option>`;
                     $('#CategoryId').append(option);
                 })
@@ -120,56 +120,56 @@ $(document).ready(function () {
     ListAllProduct(null, 0, 1);
 
     // ---------------------- script when click button search -----------------------
-    var search = document.getElementById('search');
+    const search = document.getElementById('search');
     search.addEventListener('click', function () {
-        var searchName = document.getElementById('Name');
-        var name = searchName.value;
-        var searchCategory = document.getElementById('CategoryId');
-        var categoryId = parseInt(searchCategory.value, 10);
+        const searchName = document.getElementById('Name');
+        let name = searchName.value;
+        const searchCategory = document.getElementById('CategoryId');
+        let categoryId =  Number(searchCategory.value);
         document.getElementById('CategoryId').value = categoryId;
         $('#tableBody').empty();
         ListAllProduct(name, categoryId, 1);
     });
 
     // ---------------------- script when click url Next-----------------------
-    var urlNext = document.getElementById('urlNext');
+    const urlNext = document.getElementById('urlNext');
     urlNext.addEventListener('click', function () {
-        var searchName = document.getElementById('Name');
-        var name = searchName.value;
-        var searchCategory = document.getElementById('CategoryId');
-        var categoryId = parseInt(searchCategory.value, 10);
+        let searchName = document.getElementById('Name');
+        let name = searchName.value;
+        let searchCategory = document.getElementById('CategoryId');
+        let categoryId = Number(searchCategory.value);
         document.getElementById('CategoryId').value = categoryId;
-        var currentPage = document.getElementById('currentPage');
-        var pageValue = currentPage.value;
-        var pageSelected = parseInt(pageValue, 10) + 1;
+        let currentPage = document.getElementById('currentPage');
+        let pageValue = currentPage.value;
+        let pageSelected = Number(pageValue) + 1;
         document.getElementById('currentPage').value = pageSelected;
         $('#tableBody').empty();
         ListAllProduct(name, categoryId, pageSelected);
     });
 
     // ---------------------- script when click url Previous-----------------------
-    var urlPrevious = document.getElementById('urlPrevious');
+    const urlPrevious = document.getElementById('urlPrevious');
     urlPrevious.addEventListener('click', function () {
-        var searchName = document.getElementById('Name');
-        var name = searchName.value;
-        var currentPage = document.getElementById('currentPage');
-        var searchCategory = document.getElementById('CategoryId');
-        var categoryId = parseInt(searchCategory.value, 10);
+        let searchName = document.getElementById('Name');
+        let name = searchName.value;
+        let currentPage = document.getElementById('currentPage');
+        let searchCategory = document.getElementById('CategoryId');
+        let categoryId = Number(searchCategory.value);
         document.getElementById('CategoryId').value = categoryId;
-        var pageValue = currentPage.value;
-        var pageSelected = parseInt(pageValue, 10) - 1;
+        let pageValue = currentPage.value;
+        let pageSelected = Number(pageValue) - 1;
         document.getElementById('currentPage').value = pageSelected;
         $('#tableBody').empty();
         ListAllProduct(name, categoryId, pageSelected);
     });
 
     // ---------------------- script when click url First-----------------------
-    var urlFirst = document.getElementById('urlFirst');
+    const urlFirst = document.getElementById('urlFirst');
     urlFirst.addEventListener('click', function () {
-        var searchName = document.getElementById('Name');
-        var name = searchName.value;
-        var searchCategory = document.getElementById('CategoryId');
-        var categoryId = parseInt(searchCategory.value, 10);
+        const searchName = document.getElementById('Name');
+        let name = searchName.value;
+        const searchCategory = document.getElementById('CategoryId');
+        let categoryId = Number(searchCategory.value);
         document.getElementById('CategoryId').value = categoryId;
         document.getElementById('currentPage').value = 1;
         $('#tableBody').empty();
@@ -177,14 +177,14 @@ $(document).ready(function () {
     });
 
     // ---------------------- script when click url Last-----------------------
-    var urlLast = document.getElementById('urlLast');
+    const urlLast = document.getElementById('urlLast');
     urlLast.addEventListener('click', function () {
-        var searchName = document.getElementById('Name');
-        var name = searchName.value;
-        var searchCategory = document.getElementById('CategoryId');
-        var categoryId = parseInt(searchCategory.value, 10);
+        const searchName = document.getElementById('Name');
+        let name = searchName.value;
+        const searchCategory = document.getElementById('CategoryId');
+        let categoryId = Number(searchCategory.value);
         document.getElementById('CategoryId').value = categoryId;
-        var numberPage = document.getElementById("numberPage");
+        const numberPage = document.getElementById("numberPage");
         document.getElementById('currentPage').value = numberPage.value;
         $('#tableBody').empty();
         ListAllProduct(name, categoryId, numberPage.value);

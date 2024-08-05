@@ -13,10 +13,10 @@ $(document).ready(function () {
                 if (code === 200) {
                     document.getElementById('success').innerHTML = 'Login successful';
                     document.getElementById('error').innerHTML = '';
-                    var role = response.data.roleId;
-                    var userId = response.data.userId;
-                    var username = response.data.username;
-                    var token = response.data.access_Token;
+                    let role = response.data.roleId;
+                    let userId = response.data.userId;
+                    let username = response.data.username;
+                    let token = response.data.access_Token;
                     sessionStorage.setItem('role', role.toString());
                     sessionStorage.setItem('userId', userId.toString());
                     sessionStorage.setItem('username', username);
@@ -35,8 +35,8 @@ $(document).ready(function () {
     }
 
     document.getElementById('btnLogin').addEventListener('click', function () {
-        var username = document.getElementById('username');
-        var password = document.getElementById('password');
+        let username = document.getElementById('username');
+        let password = document.getElementById('password');
         const regexUsername = new RegExp("^[a-zA-Z0-9]*$");
         if (!regexUsername.test(username.value.toString()) || username.value.toString().length > 50 || username.value.toString().length < 6) {
             document.getElementById('success').innerHTML = '';

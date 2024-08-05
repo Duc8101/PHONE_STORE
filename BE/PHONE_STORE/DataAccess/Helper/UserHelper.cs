@@ -14,7 +14,7 @@ namespace DataAccess.Helper
     {
         private const int MAX_SIZE = 8; // randow password 8 characters
 
-        public static string getAccessToken(User user)
+        public static string getAccessToken(User user, DateTime expireDate)
         {
             byte[] key = Encoding.UTF8.GetBytes("Yh2k7QSu4l8CZg5p6X3Pna9L0Miy4D3Bvt0JVr87UcOj69Kqw5R2Nmf4FWs03Hdx");
             SymmetricSecurityKey securityKey = new SymmetricSecurityKey(key);
@@ -26,7 +26,7 @@ namespace DataAccess.Helper
                 new Claim(ClaimTypes.Role, user.Role.RoleName),
             };
             JwtSecurityToken token = new JwtSecurityToken("JWTAuthenticationServer",
-                "JWTServicePostmanClient", list, expires: DateTime.Now.AddDays(1),
+                "JWTServicePostmanClient", list, expires: expireDate,
                 signingCredentials: credentials);
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
             // get access token
