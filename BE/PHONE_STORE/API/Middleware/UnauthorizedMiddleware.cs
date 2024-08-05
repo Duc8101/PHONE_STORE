@@ -19,7 +19,7 @@ namespace API.Middleware
             await _next(context);
             if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
             {
-                //context.Response.StatusCode = (int)HttpStatusCode.OK;
+                context.Response.StatusCode = (int)HttpStatusCode.OK;
                 context.Response.ContentType = "application/json";
                 ResponseBase response = new ResponseBase("Unauthorized", (int)HttpStatusCode.Unauthorized);
                 await context.Response.WriteAsync(JsonSerializer.Serialize(response));
