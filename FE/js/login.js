@@ -1,4 +1,22 @@
 $(document).ready(function () {
+    var hardInfo;
+    function getHardwareInfo(){
+        $.ajax({
+             url : 'https://localhost:7225/Hardware/Info',
+             method : 'GET',
+             success : function(response){
+                hardInfo = response.data;
+             },
+
+             error : function(error){
+                console.log('Error: ' , error);
+             }
+
+        });
+    }
+
+    getHardwareInfo();
+
     function Login(username, password) {
         $.ajax({
             url: 'https://localhost:7225/User/Login',
@@ -7,6 +25,7 @@ $(document).ready(function () {
             data: JSON.stringify({
                 username: username,
                 password: password,
+                hardwareInfo : hardInfo
             }),
             success: function (response) {
                 var code = response.code;

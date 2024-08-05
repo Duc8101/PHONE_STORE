@@ -3,7 +3,7 @@ $(document).ready(function () {
     // set pagination
     function SetPagination(data) {
         document.getElementById('urlNumber').innerHTML = `${data.pageSelected}/${data.numberPage}`;
-        const pagination = document.getElementById('pagination');
+        const paginationInput = document.getElementById('pagination');
         if (data.numberPage > 1) {
             if (pagination.style.display === 'none') {
                 pagination.style.display = 'flex';
@@ -37,7 +37,7 @@ $(document).ready(function () {
                 document.getElementById("urlLast").classList.remove("disabled");
             }
         } else {
-            pagination.style.display = 'none';
+            paginationInput.style.display = 'none';
         }
     }
 
@@ -122,10 +122,10 @@ $(document).ready(function () {
     // ---------------------- script when click button search -----------------------
     const search = document.getElementById('search');
     search.addEventListener('click', function () {
-        const searchName = document.getElementById('Name');
-        let name = searchName.value;
-        const searchCategory = document.getElementById('CategoryId');
-        let categoryId =  Number(searchCategory.value);
+        const nameInput = document.getElementById('Name');
+        let name = nameInput.value;
+        const categoryIdSelect = document.getElementById('CategoryId');
+        let categoryId =  Number(categoryIdSelect.value);
         document.getElementById('CategoryId').value = categoryId;
         $('#tableBody').empty();
         ListAllProduct(name, categoryId, 1);
@@ -134,13 +134,13 @@ $(document).ready(function () {
     // ---------------------- script when click url Next-----------------------
     const urlNext = document.getElementById('urlNext');
     urlNext.addEventListener('click', function () {
-        let searchName = document.getElementById('Name');
-        let name = searchName.value;
-        let searchCategory = document.getElementById('CategoryId');
-        let categoryId = Number(searchCategory.value);
+        const nameInput = document.getElementById('Name');
+        let name = nameInput.value;
+        const categoryIdSelect = document.getElementById('CategoryId');
+        let categoryId =  Number(categoryIdSelect.value);
         document.getElementById('CategoryId').value = categoryId;
-        let currentPage = document.getElementById('currentPage');
-        let pageValue = currentPage.value;
+        let currentPageInput = document.getElementById('currentPage');
+        let pageValue = currentPageInput.value;
         let pageSelected = Number(pageValue) + 1;
         document.getElementById('currentPage').value = pageSelected;
         $('#tableBody').empty();
@@ -150,13 +150,13 @@ $(document).ready(function () {
     // ---------------------- script when click url Previous-----------------------
     const urlPrevious = document.getElementById('urlPrevious');
     urlPrevious.addEventListener('click', function () {
-        let searchName = document.getElementById('Name');
-        let name = searchName.value;
-        let currentPage = document.getElementById('currentPage');
-        let searchCategory = document.getElementById('CategoryId');
-        let categoryId = Number(searchCategory.value);
+        const nameInput = document.getElementById('Name');
+        let name = nameInput.value;
+        const categoryIdSelect = document.getElementById('CategoryId');
+        let categoryId =  Number(categoryIdSelect.value);
         document.getElementById('CategoryId').value = categoryId;
-        let pageValue = currentPage.value;
+        const currentPageInput = document.getElementById('currentPage');
+        let pageValue = currentPageInput.value;
         let pageSelected = Number(pageValue) - 1;
         document.getElementById('currentPage').value = pageSelected;
         $('#tableBody').empty();
@@ -166,10 +166,10 @@ $(document).ready(function () {
     // ---------------------- script when click url First-----------------------
     const urlFirst = document.getElementById('urlFirst');
     urlFirst.addEventListener('click', function () {
-        const searchName = document.getElementById('Name');
-        let name = searchName.value;
-        const searchCategory = document.getElementById('CategoryId');
-        let categoryId = Number(searchCategory.value);
+        const nameInput = document.getElementById('Name');
+        let name = nameInput.value;
+        const categoryIdSelect = document.getElementById('CategoryId');
+        let categoryId =  Number(categoryIdSelect.value);
         document.getElementById('CategoryId').value = categoryId;
         document.getElementById('currentPage').value = 1;
         $('#tableBody').empty();
@@ -179,10 +179,10 @@ $(document).ready(function () {
     // ---------------------- script when click url Last-----------------------
     const urlLast = document.getElementById('urlLast');
     urlLast.addEventListener('click', function () {
-        const searchName = document.getElementById('Name');
-        let name = searchName.value;
-        const searchCategory = document.getElementById('CategoryId');
-        let categoryId = Number(searchCategory.value);
+        const nameInput = document.getElementById('Name');
+        let name = nameInput.value;
+        const categoryIdSelect = document.getElementById('CategoryId');
+        let categoryId =  Number(categoryIdSelect.value);
         document.getElementById('CategoryId').value = categoryId;
         const numberPage = document.getElementById("numberPage");
         document.getElementById('currentPage').value = numberPage.value;

@@ -50,14 +50,13 @@ namespace API.Services.Users
                 }
 
                 int clientId;
-                string hardwareInfo = HardwareHelper.Generate();
-                Client? client = _context.Clients.FirstOrDefault(c => c.HarewareInfo == hardwareInfo);
+                Client? client = _context.Clients.FirstOrDefault(c => c.HarewareInfo == DTO.HardwareInfo);
                 // nếu chưa đăng ký thiết bị
                 if (client == null)
                 {
                     client = new Client()
                     {
-                        HarewareInfo = hardwareInfo,
+                        HarewareInfo = DTO.HardwareInfo,
                         CreatedAt = DateTime.Now,
                         UpdateAt = DateTime.Now,
                         IsDeleted = false,

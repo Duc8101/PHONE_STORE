@@ -1,6 +1,7 @@
 using API.Middleware;
 using API.Services.Carts;
 using API.Services.Categories;
+using API.Services.Hardware;
 using API.Services.Orders;
 using API.Services.Products;
 using API.Services.Users;
@@ -85,6 +86,7 @@ namespace API
             builder.Services.AddScoped<IOrderService, OrderService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ICartService, CartService>();
+            builder.Services.AddScoped<IHardwareService, HardwareService>();
             // ------------------------- config auto mapper ----------------------------
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             var config = new MapperConfiguration(cfg =>

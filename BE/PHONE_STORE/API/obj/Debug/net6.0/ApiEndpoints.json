@@ -206,6 +206,26 @@
     ]
   },
   {
+    "ContainingType": "API.Controllers.HardwareController",
+    "Method": "Info",
+    "RelativePath": "Hardware/Info",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Common.Base.ResponseBase",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "API.Controllers.OrderController",
     "Method": "Create",
     "RelativePath": "Order/Create",
