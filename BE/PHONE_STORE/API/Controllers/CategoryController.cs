@@ -11,6 +11,7 @@ namespace API.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class CategoryController : BaseAPIController
     {
         private readonly ICategoryService _service;
@@ -22,49 +23,35 @@ namespace API.Controllers
         [HttpGet("All")]
         public ResponseBase List()
         {
-            ResponseBase response = _service.ListAll();
-            Response.StatusCode = response.Code;
-            return response;
+            return _service.ListAll();
         }
 
         [HttpGet("Paged")]
         [Role(Roles.Admin)]
-        [Authorize]
         public ResponseBase List(string? name, [Required] int page = 1)
         {
-            ResponseBase response = _service.ListPaged(name, page);
-            Response.StatusCode = response.Code;
-            return response;
+            return _service.ListPaged(name, page);
         }
 
         [HttpPost]
         [Role(Roles.Admin)]
-        [Authorize]
         public ResponseBase Create([Required] CategoryCreateUpdateDTO DTO)
         {
-            ResponseBase response = _service.Create(DTO);
-            Response.StatusCode = response.Code;
-            return response;
+            return _service.Create(DTO);
         }
 
         [HttpGet("{categoryId}")]
         [Role(Roles.Admin)]
-        [Authorize]
         public ResponseBase Detail([Required] int categoryId)
         {
-            ResponseBase response = _service.Detail(categoryId);
-            Response.StatusCode = response.Code;
-            return response;
+            return _service.Detail(categoryId);
         }
 
         [HttpPut("{categoryId}")]
         [Role(Roles.Admin)]
-        [Authorize]
         public ResponseBase Update([Required] int categoryId, [Required] CategoryCreateUpdateDTO DTO)
         {
-            ResponseBase response = _service.Update(categoryId, DTO);
-            Response.StatusCode = response.Code;
-            return response;
+            return _service.Update(categoryId, DTO);
         }
 
 

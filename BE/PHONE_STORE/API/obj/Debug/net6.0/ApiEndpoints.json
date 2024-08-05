@@ -574,11 +574,6 @@
         "Name": "token",
         "Type": "System.String",
         "IsRequired": false
-      },
-      {
-        "Name": "hardware",
-        "Type": "System.String",
-        "IsRequired": false
       }
     ],
     "ReturnTypes": [

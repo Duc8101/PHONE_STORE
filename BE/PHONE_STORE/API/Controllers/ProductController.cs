@@ -11,6 +11,7 @@ namespace API.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
+    [Authorize]
     public class ProductController : BaseAPIController
     {
         private readonly IProductService _service;
@@ -29,7 +30,6 @@ namespace API.Controllers
 
         [HttpPost]
         [Role(Roles.Admin)]
-        [Authorize]
         public ResponseBase Create([Required] ProductCreateUpdateDTO DTO)
         {
             ResponseBase response = _service.Create(DTO);
@@ -39,7 +39,6 @@ namespace API.Controllers
 
         [HttpGet("{productId}")]
         [Role(Roles.Admin)]
-        [Authorize]
         public ResponseBase Detail([Required] Guid productId)
         {
             ResponseBase response = _service.Detail(productId);
@@ -49,7 +48,6 @@ namespace API.Controllers
 
         [HttpPut("{productId}")]
         [Role(Roles.Admin)]
-        [Authorize]
         public ResponseBase Update([Required] Guid productId, [Required] ProductCreateUpdateDTO DTO)
         {
             ResponseBase response = _service.Update(productId, DTO);
@@ -59,7 +57,6 @@ namespace API.Controllers
 
         [HttpDelete("{productId}")]
         [Role(Roles.Admin)]
-        [Authorize]
         public ResponseBase Delete([Required] Guid productId)
         {
             ResponseBase response = _service.Delete(productId);

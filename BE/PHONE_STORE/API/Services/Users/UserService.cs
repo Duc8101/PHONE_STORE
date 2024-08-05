@@ -46,7 +46,7 @@ namespace API.Services.Users
                 User? user = _context.Users.Include(u => u.Role).FirstOrDefault(u => u.Username == DTO.Username);
                 if (user == null || !user.Password.Equals(UserHelper.HashPassword(DTO.Password)))
                 {
-                    return new ResponseBase("Username or password incorrect", (int)HttpStatusCode.NotFound);
+                    return new ResponseBase("Username or password incorrect", (int)HttpStatusCode.Conflict);
                 }
 
                 int clientId;

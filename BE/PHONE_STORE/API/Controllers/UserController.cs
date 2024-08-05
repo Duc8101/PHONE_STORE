@@ -42,9 +42,7 @@ namespace API.Controllers
         [HttpPost]
         public ResponseBase Login([Required] LoginDTO DTO)
         {
-            ResponseBase response = _service.Login(DTO);
-            Response.StatusCode = response.Code;
-            return response;
+            return _service.Login(DTO);
         }
 
         [HttpGet]

@@ -60,9 +60,16 @@
                             </a>
                         </div>
                     </div>
-                    <div id="navbar" class="col-md-1 navbar-collapse collapse text-center">
+                    <div id="navbar" class="col-md-1 navbar-collapse collapse text-center" style="margin-top: 12px;">
                         <ul class="nav navbar-nav">
-                            <li><a href="home.html">HOME</a></li>
+                            <div id="home">
+                                <li><a href="home.html">HOME</a></li>
+                            </div>
+                            <div id="manager">
+                                <li><a href="#">Product</a></li>
+                                <li><a href="#">Order</a></li>
+                                <li><a href="#">Category</a></li>
+                            </div>
 
                         </ul><!-- / .nav .navbar-nav -->
 
@@ -74,11 +81,45 @@
                 </div>
 
                 <div class="col-lg-2 col-md-2 col-xs-12 col-sm-4" style="margin-top: 12px;">
-
+                    <!-- Cart -->
+                    <ul class="top-menu text-right list-inline" id="ulCart">
+                        <li class="dropdown cart-nav dropdown-slide">
+                            <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                                style="font-size: 20px;top:auto">
+                                <i class="tf-ion-android-cart mx-auto" style="font-size: 25px;top:auto"></i>Cart
+                                <span class="badge bg-dark text-white ms-1 rounded-pill"></span>
+                            </a>
+                            <div class="dropdown-menu cart-dropdown">
+                                <ul class="text-center cart-buttons">
+                                    <li><a href="#" class="btn btn-small">View</a></li>
+                                </ul>
+                            </div>
+                        </li><!-- / Cart -->
+                    </ul>
                 </div>
 
-                <div class="col-lg-2 col-md-2" style="margin-top: 12px;">
-                    <a href="#" class="btn btn-dark" role="button">Login</a>
+                <div class="col-lg-2 col-md-2" id="navUser">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown dropdown-slide">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                                data-delay="350" role="button" aria-haspopup="true" aria-expanded="false"
+                                style="font-size: 18px" id="welcome">
+                                Welcome
+                            </a>
+                            <div class="dropdown-menu">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 mb-sm-3">
+                                        <ul>
+                                            <li><a href="#" id="liProfile">Profile</a></li>
+                                            <li><a href="#" id="liMyOrder">MyOrder</a></li>
+                                            <li><a href="#" id="liChangePassword">ChangePassword</a></li>
+                                            <li><a href="#">Logout</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
 
             </div>
@@ -114,6 +155,7 @@
                             <th>Price</th>
                             <th>Quantity</th>
                             <th>Category Name</th>
+                            <th>Add Cart</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -124,12 +166,17 @@
             </div>
 
             <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center list-group" style="margin-left: 50%" id="pagination">                 
-                    <li class="page-item" id="liFirst"><a class="page-link btn btn-primary btn-lg"  aria-disabled="true" role="button" id="urlFirst">First</a></li>
-                    <li class="page-item" id="liPrevious"><a class="page-link btn btn-primary btn-lg"  aria-disabled="true" role="button" id="urlPrevious">Previous</a></li>
-                    <li class="page-item" id="liNumber"><a class="page-link btn btn-primary btn-lg" aria-disabled="true" role="button" id="urlNumber"></a></li>
-                    <li class="page-item" id="liNext"><a class="page-link btn btn-primary btn-lg"  aria-disabled="true" role="button" id="urlNext">Next</a></li>
-                    <li class="page-item" id="liLast"><a class="page-link btn btn-primary btn-lg"  aria-disabled="true" role="button" id="urlLast">Last</a></li>
+                <ul class="pagination justify-content-center list-group" style="margin-left: 50%" id="pagination">
+                    <li class="page-item" id="liFirst"><a class="page-link btn btn-primary btn-lg" aria-disabled="true"
+                            role="button" id="urlFirst">First</a></li>
+                    <li class="page-item" id="liPrevious"><a class="page-link btn btn-primary btn-lg"
+                            aria-disabled="true" role="button" id="urlPrevious">Previous</a></li>
+                    <li class="page-item" id="liNumber"><a class="page-link btn btn-primary btn-lg" aria-disabled="true"
+                            role="button" id="urlNumber"></a></li>
+                    <li class="page-item" id="liNext"><a class="page-link btn btn-primary btn-lg" aria-disabled="true"
+                            role="button" id="urlNext">Next</a></li>
+                    <li class="page-item" id="liLast"><a class="page-link btn btn-primary btn-lg" aria-disabled="true"
+                            role="button" id="urlLast">Last</a></li>
                 </ul>
             </nav>
         </main>
@@ -185,6 +232,7 @@
         </div>
     </footer>
 
+    <script src="js/common.js"></script>
     <script src="js/home.js"></script>
     <!-- Main jQuery -->
     <script src="plugins/jquery/dist/jquery.min.js"></script>

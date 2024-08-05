@@ -36,7 +36,7 @@ namespace API.Attributes
                 ResponseBase result = new ResponseBase("Not found user id based on token. Please check information!!", (int)HttpStatusCode.NotFound);
                 context.Result = new JsonResult(result)
                 {
-                    StatusCode = (int)HttpStatusCode.NotFound,
+                    StatusCode = (int)HttpStatusCode.OK,
                 };
             }
             else
@@ -48,7 +48,7 @@ namespace API.Attributes
                     ResponseBase response = new ResponseBase("Not found user", (int)HttpStatusCode.NotFound);
                     context.Result = new JsonResult(response)
                     {
-                        StatusCode = (int)HttpStatusCode.NotFound,
+                        StatusCode = (int)HttpStatusCode.OK,
                     };
                 }
                 else if (!Roles.Contains((Roles)user.RoleId))
@@ -56,7 +56,7 @@ namespace API.Attributes
                     ResponseBase response = new ResponseBase("You are not allowed to access", (int)HttpStatusCode.Forbidden);
                     context.Result = new JsonResult(response)
                     {
-                        StatusCode = (int)HttpStatusCode.Forbidden,
+                        StatusCode = (int)HttpStatusCode.OK,
                     };
                 }
             }

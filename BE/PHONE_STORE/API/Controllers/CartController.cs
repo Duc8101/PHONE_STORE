@@ -27,51 +27,33 @@ namespace API.Controllers
         public ResponseBase List()
         {
             string? userId = getUserId();
-            ResponseBase response;
             if (userId == null)
             {
-                response = new ResponseBase("Not found user", (int)HttpStatusCode.NotFound);
+                return new ResponseBase("Not found user", (int)HttpStatusCode.NotFound);
             }
-            else
-            {
-                response = _service.List(Guid.Parse(userId));
-            }
-            Response.StatusCode = response.Code;
-            return response;
+            return _service.List(Guid.Parse(userId));
         }
 
         [HttpPost]
         public ResponseBase Create([Required] CartCreateDTO DTO)
         {
             string? userId = getUserId();
-            ResponseBase response;
             if (userId == null)
             {
-                response = new ResponseBase("Not found user", (int)HttpStatusCode.NotFound);
+                return new ResponseBase("Not found user", (int)HttpStatusCode.NotFound);
             }
-            else
-            {
-                response = _service.Create(DTO, Guid.Parse(userId));
-            }
-            Response.StatusCode = response.Code;
-            return response;
+            return _service.Create(DTO, Guid.Parse(userId));
         }
 
         [HttpDelete]
         public ResponseBase Delete([Required] Guid productId)
         {
             string? userId = getUserId();
-            ResponseBase response;
             if (userId == null)
             {
-                response = new ResponseBase("Not found user", (int)HttpStatusCode.NotFound);
+                return new ResponseBase("Not found user", (int)HttpStatusCode.NotFound);
             }
-            else
-            {
-                response = _service.Delete(productId, Guid.Parse(userId));
-            }
-            Response.StatusCode = response.Code;
-            return response;
+            return _service.Delete(productId, Guid.Parse(userId));
         }
     }
 }

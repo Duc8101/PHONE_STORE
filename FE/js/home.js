@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    const token = sessionStorage.getItem('token');
     // set pagination
     function SetPagination(data) {
         document.getElementById('urlNumber').innerHTML = `${data.pageSelected}/${data.numberPage}`;
@@ -55,6 +56,9 @@ $(document).ready(function () {
         $.ajax({
             url: url,
             method: 'GET',
+            headers : {
+                'Authorization' :  `Bearer ${token}`
+            },
             success: function (response) {
                 // get list product
                 var products = response.data.list;
@@ -67,6 +71,13 @@ $(document).ready(function () {
                         <td>${product.price}</td>
                         <td>${product.quantity}</td>
                         <td>${product.categoryName}</td>
+                        <td>
+                            <button class="posision-fixed" style="radius: 10px">
+                                <a href="#">
+                                    Add to Cart
+                                </a>
+                            </button>
+                        </td>
                     </tr>`;
                     $('#tableBody').append(row);
                 })
@@ -88,6 +99,9 @@ $(document).ready(function () {
         $.ajax({
             url: 'https://localhost:7225/Category/List/All',
             method: 'GET',
+            headers : {
+                'Authorization' :  `Bearer ${token}`
+            },
             success: function (response) {
                 var categories = response.data;
                 categories.forEach(function (category) {

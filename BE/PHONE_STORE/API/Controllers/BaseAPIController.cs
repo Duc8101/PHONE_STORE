@@ -9,13 +9,13 @@ namespace API.Controllers
     {
         private protected string? getUserId()
         {
-            Claim? claim = User.Claims.Where(c => c.Type == "id").FirstOrDefault();
+            Claim? claim = User.Claims.FirstOrDefault(c => c.Type == "id");
             return claim?.Value;
         }
 
         private protected bool isAdmin()
         {
-            Claim? claim = User.Claims.Where(c => c.Type == ClaimTypes.Role).FirstOrDefault();
+            Claim? claim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role);
             return claim != null && claim.Value == Roles.Admin.getDescription();
         }
     }

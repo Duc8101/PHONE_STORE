@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
-using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -28,65 +27,47 @@ namespace API.Controllers
         public async Task<ResponseBase> Create([Required] OrderCreateDTO DTO)
         {
             string? userId = getUserId();
-            ResponseBase response;
             if (userId == null)
             {
-                response = new ResponseBase("Not found user", (int)HttpStatusCode.NotFound);
+                return new ResponseBase("Not found user", (int)HttpStatusCode.NotFound);
             }
-            else
-            {
-                response = await _service.Create(DTO, Guid.Parse(userId));
-            }
-            Response.StatusCode = response.Code;
-            return response;
+            return await _service.Create(DTO, Guid.Parse(userId));
         }
 
         [HttpGet]
         public ResponseBase List(string? status, [Required] int page = 1)
         {
             string? userId = getUserId();
-            ResponseBase response;
             if (userId == null)
             {
-                response = new ResponseBase("Not found user id", (int)HttpStatusCode.NotFound);
+                return new ResponseBase("Not found user id", (int)HttpStatusCode.NotFound);
             }
-            else
-            {
-                bool admin = isAdmin();
-                response = _service.List(admin ? null : Guid.Parse(userId), status, admin, page);
-                Response.StatusCode = response.Code;
-            }
-            return response;
+            bool admin = isAdmin();
+            return _service.List(admin ? null : Guid.Parse(userId), status, admin, page);
         }
 
         [HttpGet("{orderId}")]
         public ResponseBase Detail([Required] Guid orderId)
         {
             string? userId = getUserId();
-            ResponseBase response;
             if (userId == null)
             {
-                response = new ResponseBase("Not found user", (int)HttpStatusCode.NotFound);
+                return new ResponseBase("Not found user", (int)HttpStatusCode.NotFound);
             }
-            else if (isAdmin())
+
+            if (isAdmin())
             {
-                response = _service.Detail(orderId, null);
+                return _service.Detail(orderId, null);
             }
-            else
-            {
-                response = _service.Detail(orderId, Guid.Parse(userId));
-            }
-            Response.StatusCode = response.Code;
-            return response;
+
+            return _service.Detail(orderId, Guid.Parse(userId));
         }
 
         [HttpPut("{orderId}")]
         [Role(Roles.Admin)]
         public async Task<ResponseBase> Update([Required] Guid orderId, [Required] OrderUpdateDTO DTO)
         {
-            ResponseBase response = await _service.Update(orderId, DTO);
-            Response.StatusCode = response.Code;
-            return response;
+            return await _service.Update(orderId, DTO);
         }
     }
 }
