@@ -26,17 +26,11 @@ namespace API.Controllers
         public ResponseBase Detail()
         {
             string? userId = getUserId();
-            ResponseBase response;
             if (userId == null)
             {
-                response = new ResponseBase("Not found user", (int)HttpStatusCode.NotFound);
+                return new ResponseBase("Not found user", (int)HttpStatusCode.NotFound);
             }
-            else
-            {
-                response = _service.Detail(Guid.Parse(userId));
-            } 
-            Response.StatusCode = response.Code;
-            return response;
+            return _service.Detail(Guid.Parse(userId));
         }
 
         [HttpPost]
@@ -50,33 +44,23 @@ namespace API.Controllers
         public ResponseBase Logout()
         {
             string? userId = getUserId();
-            ResponseBase response;
             if (userId == null)
             {
-                response = new ResponseBase(false, "Not found user id", (int)HttpStatusCode.NotFound);
+                return new ResponseBase(false, "Not found user id", (int)HttpStatusCode.NotFound);
             }
-            else
-            {
-                response = _service.Logout(Guid.Parse(userId));
-            }
-            Response.StatusCode = response.Code;
-            return response;
+            return _service.Logout(Guid.Parse(userId));
         }
 
         [HttpPost]
         public async Task<ResponseBase> Create([Required] UserCreateDTO DTO)
         {
-            ResponseBase response = await _service.Create(DTO);
-            Response.StatusCode = response.Code;
-            return response;
+            return await _service.Create(DTO);
         }
 
         [HttpPost]
         public async Task<ResponseBase> ForgotPassword(ForgotPasswordDTO DTO)
         {
-            ResponseBase response = await _service.ForgotPassword(DTO);
-            Response.StatusCode = response.Code;
-            return response;
+            return await _service.ForgotPassword(DTO);
         }
 
         [HttpPut]
@@ -85,17 +69,11 @@ namespace API.Controllers
         public ResponseBase Update([Required] UserUpdateDTO DTO)
         {
             string? userId = getUserId();
-            ResponseBase response;
             if (userId == null)
             {
-                response = new ResponseBase("Not found user id", (int)HttpStatusCode.NotFound);
+                return new ResponseBase("Not found user id", (int)HttpStatusCode.NotFound);
             }
-            else
-            {
-                response = _service.Update(Guid.Parse(userId), DTO);
-            }   
-            Response.StatusCode = response.Code;
-            return response;
+            return _service.Update(Guid.Parse(userId), DTO);
         }
 
 
@@ -104,25 +82,17 @@ namespace API.Controllers
         public ResponseBase ChangePassword([Required] ChangePasswordDTO DTO)
         {
             string? userId = getUserId();
-            ResponseBase response;
             if (userId == null)
             {
-                response = new ResponseBase(false, "Not found user id", (int)HttpStatusCode.NotFound);
+                return new ResponseBase("Not found user id", (int)HttpStatusCode.NotFound);
             }
-            else
-            {
-                 response = _service.ChangePassword(Guid.Parse(userId), DTO);
-            }            
-            Response.StatusCode = response.Code;
-            return response;
+            return _service.ChangePassword(Guid.Parse(userId), DTO);
         }
 
         [HttpGet]
         public ResponseBase GetUserByToken(string token)
         {
-            ResponseBase response = _service.GetUserByToken(token);
-            Response.StatusCode = response.Code;
-            return response;
+            return _service.GetUserByToken(token);
         }
 
     }

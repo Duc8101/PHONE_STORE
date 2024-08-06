@@ -28,7 +28,7 @@ $(document).ready(function () {
                 hardwareInfo : hardInfo
             }),
             success: function (response) {
-                var code = response.code;
+                let code = response.code;
                 if (code === 200) {
                     document.getElementById('success').innerHTML = 'Login successful';
                     document.getElementById('error').innerHTML = '';
