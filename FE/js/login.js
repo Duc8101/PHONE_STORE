@@ -40,7 +40,7 @@ $(document).ready(function () {
                     sessionStorage.setItem('userId', userId.toString());
                     sessionStorage.setItem('username', username);
                     sessionStorage.setItem('token', token);
-                    window.location.href = 'home.html';
+                    window.location.href = '../pages/home.html';
                 } else {
                     document.getElementById('success').innerHTML = '';
                     document.getElementById('error').innerHTML = response.message;
